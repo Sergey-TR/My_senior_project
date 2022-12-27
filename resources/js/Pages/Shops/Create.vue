@@ -30,7 +30,9 @@ const submit = () => {
         <CalendarSelector />
       </div>
       <div class="my-content mt-5 p-2.5 overflow-y-auto">       
-        <h1 class="text-stone-700 text-lg font-bold underline underline-offset-8">Create Shop</h1>
+        <h1 class="text-stone-700 text-lg font-bold underline underline-offset-8">
+          У Вас еще нет магазинов в этом списке, создайте магазин.
+        </h1>
         <form class="mt-6" @submit.prevent= "submit">
           <div>
             <InputLabel for="shop_name" value="Введите название магазина" />
@@ -39,7 +41,7 @@ const submit = () => {
             />
           </div>
             <div class="flex items-center justify-end mt-4">
-                <button type="submit" class="btn-primary">Create</button>
+                <button type="submit" class="btn-primary">Создать</button>
             </div>
         </form>
         
