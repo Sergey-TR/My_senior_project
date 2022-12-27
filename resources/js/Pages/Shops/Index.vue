@@ -9,7 +9,9 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
   <Head title="MyCurrentShops" />
 
   <AuthLayout>
-
+    <div>
+      My SHOPS
+    </div>
   </AuthLayout>
 </template>
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\Catalog\StoreRequest;
 use App\Models\Catalog;
+use App\Models\Shop;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class CatalogController extends Controller
@@ -20,6 +22,15 @@ class CatalogController extends Controller
             ->orderBy('list_data', 'asc')
                 ->get();
 
+        $shops = Shop::all();
+
+        $catalogJoinShop = DB::table('shops')
+            ->leftJoin('catalogs', 'shops.catalog_id', '=', 'catalogs.id')
+                ->orderBy('list_data', 'asc')
+                    ->get();
+
+                    //dd($catalogJoinShop->toArray());
+
         $currentDay = date('Y-m-d');
         $lists = [];
         $dateList = [];
@@ -33,7 +44,9 @@ class CatalogController extends Controller
                 array_push($dateList, $value->list_data);
             }
         }
-        return Inertia::render('Catalogs/Index', compact('lists', 'catalogs', 'dateList'));
+      
+        return Inertia::render('Catalogs/Index',
+         compact('lists', 'catalogs', 'dateList', 'shops', 'catalogJoinShop'));
     }
 
     /**
@@ -44,7 +57,14 @@ class CatalogController extends Controller
     public function create()
     {
         $user_id = auth()->id();
-        return Inertia::render('Catalogs/Create', compact('user_id'));
+        $lists = Catalog::where('user_id', '=', auth()->id())->select('list_data')->get();
+
+        $dateList = [];
+        foreach($lists as $list => $value) {
+            array_push($dateList, $value->list_data);
+        }
+       
+        return Inertia::render('Catalogs/Create', compact('user_id', 'dateList'));
     }
 
     /**
@@ -55,15 +75,11 @@ class CatalogController extends Controller
      */
     public function store(StoreRequest $request) 
     {   
-        $currentDay = date('Y-m-d');
-
-        if($request->list_data < $currentDay) {
-
-           return redirect(route('catalogs.create'))->with('message', $request->list_data);
-        };
-        
         Catalog::create($request->validated());
-        return redirect(route('catalogs.index'));
+        $lastList = Catalog::latest()->first();
+        $lastListId = $lastList->id;
+        
+        return redirect()->route('shops.create')->with('message', $lastListId);
     }
 
     /**
@@ -74,7 +90,13 @@ class CatalogController extends Controller
      */
     public function show($id)
     {
-        //
+        $catalog = Catalog::where('id', '=', $id)->get();
+        $shops = Shop::where('catalog_id', '=', $id)->get();
+        if($shops->isEmpty()) {
+            return redirect()->route('shops.create')->with('message', $id);
+        };
+
+        return Inertia::render('Catalogs/Show', compact('catalog', 'shops'));
     }
 
     /**
@@ -108,6 +130,9 @@ class CatalogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $catalog = Catalog::where('id', '=', $id);
+        $catalog->delete();
+
+        return redirect()->route('catalogs.index');
     }
 }

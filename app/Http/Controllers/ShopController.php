@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Shop\ShopStoreRequest;
+use App\Models\Catalog;
+use App\Models\Shop;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,7 +18,8 @@ class ShopController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Shops/Index');
+        $shops = Shop::all();
+        return Inertia::render('Shops/Index', compact('shops'));
     }
 
     /**
@@ -24,6 +29,10 @@ class ShopController extends Controller
      */
     public function create()
     {
+        
+        //$shopId = $catalog->latest()->first()->id;
+
+        
         return Inertia::render('Shops/Create');
     }
 
@@ -33,9 +42,12 @@ class ShopController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ShopStoreRequest $request)
     {
-        //
+        Shop::create($request->validated());
+        $shopId = Shop::latest()->first()->id;
+
+        return redirect()->route('products.create')->with('message', $shopId);
     }
 
     /**
@@ -46,7 +58,19 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-        //
+       
+            $shopInList = Shop::where('catalog_id', '=', $id)->get();
+           //dd($shopInList);
+            if($shopInList->isEmpty()) {
+                $message = 'don`t have shops';
+                return Inertia::render('Shops/Show', compact('message'));
+            }
+            
+            return Inertia::render('Shops/Show', compact('shopInList'));
+        
+        //dd($shopInList->toArray());
+        
+
     }
 
     /**

@@ -15,9 +15,12 @@ return new class extends Migration
     {
         Schema::create('shops', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('catalog-id')->constrained('catalogs')->onDelete('cascade');
+            $table->string('shop_name')->default('Без магазина');
+            $table->foreignId('catalog_id')
+                ->constrained('catalogs')
+                    ->onDelete('cascade');
             $table->timestamps();
+
         });
     }
 

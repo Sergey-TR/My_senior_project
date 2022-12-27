@@ -31,12 +31,17 @@ Route::get('/', function () {
 Route::get('/about', AboutController::class, 'about') -> name('about');
 Route::get('/calendar_page', CalendarController::class, 'calendar') -> name('calendar');
 
-
-
 Route::resources([
     'catalogs' => CatalogController::class,
     'shops' => ShopController::class,
 ]);
+
+//Route::resource('catalogs', CatalogController::class);
+   // 'shops' => ShopController::class,
+//Route::group(['prefix' => 'shops'], function () {
+    // Route::get('/shop/{id}', [ShopController::class, 'create'])->name('shops.create');
+    // Route::resource('shops', ShopController::class);
+//});
 
 //Route::post('/catalogs', [CatalogController::class, 'store'])->name('catalogs.store');
 

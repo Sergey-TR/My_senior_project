@@ -9,4 +9,8 @@ class Shop extends Model
 {
     protected $table = 'shops';
     protected $guarded = false;
+
+    public function catalog() {
+        return $this->belongsTo(Catalog::class);
+    }
 }

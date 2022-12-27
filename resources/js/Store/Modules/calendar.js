@@ -63,6 +63,11 @@ export const calendar = {
 
     getDayList(state) {
       if (state.selectDay.length != 0) {
+        const day = getISO(state.selectDay)
+          if (day < getISO(new Date())) {
+            const message = 'wrong data'
+            return message
+          }
         return getISO(state.selectDay)
       } 
       else {

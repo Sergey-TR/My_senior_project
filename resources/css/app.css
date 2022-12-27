@@ -81,6 +81,18 @@ body {
   color: #ffffff;
 }
 
+.bi-chevron-right {
+  color: #57a6eb;
+}
+
+.bi-x-circle {
+  color: darkred;
+}
+
+.bi-x-circle:hover{
+  color: red;
+}
+
 .menu {
   display: none;
 }
@@ -207,9 +219,9 @@ body {
   padding: 10px;
 }
 
-.block {
+/* .block {
   display: block;
-}
+} */
 
 .my-content {
   min-height: 50px;
