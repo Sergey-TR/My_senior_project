@@ -6,11 +6,13 @@ import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, usePage, useForm } from '@inertiajs/inertia-vue3';
 import { computed, ref } from 'vue';
 
-const id = computed(()=> usePage().props.value.flash.message)
+const id = defineProps({
+  shopId: String
+})
 
 const form = useForm({
   shop_name: 'Без магазина',
-  catalog_id: id
+  catalog_id: id.shopId
 })
 
 const submit = () => {
@@ -32,7 +34,7 @@ const submit = () => {
       <div class="my-content mt-5 p-2.5 overflow-y-auto">       
         <h1 class="text-stone-700 text-lg font-bold underline underline-offset-8">
           У Вас еще нет магазинов в этом списке, создайте магазин.
-        </h1>
+        </h1>        
         <form class="mt-6" @submit.prevent= "submit">
           <div>
             <InputLabel for="shop_name" value="Введите название магазина" />
