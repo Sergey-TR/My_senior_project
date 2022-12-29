@@ -26,7 +26,9 @@ class ProductStoreRequest extends FormRequest
     {
         return [
             'shop_id' => ['required', 'integer'],
-            'title' => ['required', 'string']
+            'title' => ['required', 'string'],
+            'quantity' => ['required', 'string'],
+            'measured' => ['required', 'string'],
         ];
     }
 }
