@@ -13,4 +13,8 @@ class Shop extends Model
     public function catalog() {
         return $this->belongsTo(Catalog::class);
     }
+
+    public function products() {
+        return $this->hasMany(Product::class);
+    }
 }

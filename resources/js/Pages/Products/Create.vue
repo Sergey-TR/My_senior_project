@@ -6,10 +6,12 @@ import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, usePage, useForm } from '@inertiajs/inertia-vue3';
 import { computed, ref } from 'vue';
 
-const shop_id = computed(()=> usePage().props.value.flash.message);
+const id = defineProps({
+  productId: String
+})
 
 const form = useForm({
-  shop_id: shop_id,
+  shop_id: id.productId,
   title: ''
 });
 
@@ -29,16 +31,16 @@ const submit = () => {
         <CalendarSelector />
       </div>
       <div class="my-content mt-5 p-2.5 overflow-y-auto">
-        <h1 class="text-stone-700 text-lg font-bold underline underline-offset-8">Create Product</h1>
+        <h1 class="text-stone-700 text-lg font-bold underline underline-offset-8">Создайте продукт</h1>
         <form class="mt-6" @submit.prevent= "submit">
           <div>
-            <InputLabel for="shop_name" value="Введите название продукта" />
-            <TextInput id="shop_name" type="text" placeholder="продукт" class="mt-1 block w-full" 
-              v-model="form.title" autofocus required autocomplete="shop_name" 
+            <InputLabel for="title" value="Введите название продукта" />
+            <TextInput id="title" type="text" placeholder="продукт" class="mt-1 block w-full" 
+              v-model="form.title" autofocus required autocomplete="title" 
             />
           </div>
             <div class="flex items-center justify-end mt-4">
-                <button type="submit" class="btn-primary">Create</button>
+                <button type="submit" class="btn-primary">Создать</button>
             </div>
         </form>
       </div> 
