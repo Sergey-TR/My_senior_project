@@ -43,7 +43,7 @@ class ProductController extends Controller
     {
         $product = Product::create($request->validated());
 
-        return redirect()->route('products.index');
+        return redirect()->route('shops.show', $request->shop_id);
     }
 
     /**

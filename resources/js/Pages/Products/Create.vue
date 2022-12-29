@@ -12,7 +12,9 @@ const id = defineProps({
 
 const form = useForm({
   shop_id: id.productId,
-  title: ''
+  title: '',
+  quantity: '',
+  measured: ''
 });
 
 const submit = () => {
@@ -38,6 +40,24 @@ const submit = () => {
             <TextInput id="title" type="text" placeholder="продукт" class="mt-1 block w-full" 
               v-model="form.title" autofocus required autocomplete="title" 
             />
+          </div>
+          <div>
+            <div>
+              <InputLabel for="quantity" value="Количество" />
+              <TextInput id="quantity" type="text" v-model="form.quantity" autofocus required autocomplete="quantity" />
+            </div>
+            <div>
+              <label for="measured" value="ед. измерения">ед. измерения
+              <select v-model="form.measured" id="measured">
+                <option value="null" disabled selected>ед. измерения</option>
+                <option>шт.</option>
+                <option>гр.</option>
+                <option>кг.</option>
+                <option>л.</option>
+                <option>дес.</option>
+              </select>
+            </label>
+            </div>
           </div>
             <div class="flex items-center justify-end mt-4">
                 <button type="submit" class="btn-primary">Создать</button>

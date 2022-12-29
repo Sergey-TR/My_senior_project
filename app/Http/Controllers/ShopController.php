@@ -58,6 +58,7 @@ class ShopController extends Controller
     public function show($id)
     {
         $shop = Shop::where('id', '=', $id)->first();
+        // dd($shop);
         $list = Catalog::where('id', '=', $shop->catalog_id)->get();
         $products = Product::where('shop_id', '=', $id)->get();
             
