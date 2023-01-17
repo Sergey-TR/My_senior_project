@@ -29,8 +29,6 @@ class CatalogController extends Controller
                 ->orderBy('list_data', 'asc')
                     ->get();
 
-                    //dd($catalogJoinShop->toArray());
-
         $currentDay = date('Y-m-d');
         $lists = [];
         $dateList = [];

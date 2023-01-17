@@ -76,6 +76,7 @@ export const calendar = {
     }, 
 
     getAllDateList(state) {
+    
       return state.dateList
     }
   },

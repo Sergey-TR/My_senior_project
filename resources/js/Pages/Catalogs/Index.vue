@@ -5,6 +5,7 @@ import DropDownShopInList from '@/Components/DropDownShopInList.vue';
 import dateFilter from '@/Filters/date.filter';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import { watch, ref, reactive } from 'vue';
+import store from '@/Store/store';
 
 const myList = defineProps({
   lists: Array,
@@ -13,6 +14,8 @@ const myList = defineProps({
   shops: Array,
   catalogJoinShop: Array
 })
+
+store.dispatch('getDateUserList', myList.dateList)
 
 const a = '5'
 </script>

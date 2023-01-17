@@ -5,11 +5,14 @@ import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, usePage, useForm } from '@inertiajs/inertia-vue3';
 import { computed, ref } from 'vue';
+import store from '@/Store/store';
 
 const id = defineProps({
   shopId: String
 })
 
+const allLists = computed(() => store.getters.getAllDateList)
+// console.log(allLists)
 const form = useForm({
   shop_name: 'Без магазина',
   catalog_id: id.shopId
@@ -28,6 +31,7 @@ const submit = () => {
 
   <AuthLayout>
     <div class="wrapper-home">
+      {{ allLists }}
       <div class="calendar-box block">
         <CalendarSelector />
       </div>
