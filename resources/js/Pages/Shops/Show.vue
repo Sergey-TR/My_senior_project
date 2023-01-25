@@ -41,15 +41,10 @@ const allLists = computed(() => store.getters.getAllDateList)
           <h1 class="text-stone-600 text-lg font-bolder m-0 p-0">
            Магазин: &nbsp; {{ props.shop.shop_name }}
           </h1>
-          <Link
-            :href="route('products.create', props.shop.id)"
-            class="hover:underline  hover:underline-offset-8 hover:text-sky-400 text-lg text-sky-500 font-bolder"
-            >Добавить продукт
-          </Link>
         </div>
         <div v-for="product in props.products" :key="product.id">
-            <div class="flex items-center justify-between w-full mt-3">
-              <div class="flex items-center">
+            <div class="flex justify-between w-full mt-3">
+              <div class="flex">
                 <div class="shop-products-list">
                   <div class="shop-productItem" >
                     <label
@@ -82,6 +77,11 @@ const allLists = computed(() => store.getters.getAllDateList)
             </div> -->
             </div>
         </div>
+          <Link
+            :href="route('products.create', props.shop.id)"
+            class="hover:underline  hover:underline-offset-8 hover:text-sky-400 text-lg text-sky-500 font-bolder text-end"
+            >Добавить продукт
+          </Link>
       </div>
       
     </div>
@@ -90,7 +90,7 @@ const allLists = computed(() => store.getters.getAllDateList)
 
 <style>
 .shop-products-list {
-  padding: 0px 16px;
+  padding-left: 30px;
 }
 .row-list {
   display: flex;
@@ -102,6 +102,7 @@ const allLists = computed(() => store.getters.getAllDateList)
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  display: none;
 }
 .title-of-the-item {
   width: 240px;
@@ -111,7 +112,7 @@ const allLists = computed(() => store.getters.getAllDateList)
   text-overflow: ellipsis;
 }
 .title-checked {
-  color: #b9b9b9;
+  color: #949494;
   text-decoration-line: line-through;
 }
 .check-item {
@@ -126,11 +127,11 @@ const allLists = computed(() => store.getters.getAllDateList)
   height: 16px;
   border: 1px solid #242e42;
   border-radius: 2px;
-  margin-left: -29px;
+  margin-left: -30px;
 }
 /*CHECKED*/
 input:checked + .title-of-the-item {
-  color: #b9b9b9;
+  color: #949494;
   text-decoration-line: line-through;
 }
 input:checked + .title-of-the-item + .check-box-fake {

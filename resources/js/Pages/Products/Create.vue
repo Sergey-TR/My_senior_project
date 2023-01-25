@@ -51,6 +51,7 @@ const submit = () => {
               <select v-model="form.measured" id="measured">
                 <option value="null" disabled selected>ед. измерения</option>
                 <option>шт.</option>
+                <option>метр</option>
                 <option>гр.</option>
                 <option>кг.</option>
                 <option>л.</option>
