@@ -11,8 +11,8 @@ const id = defineProps({
   shopId: String
 })
 
-const allLists = computed(() => store.getters.getAllDateList)
-// console.log(allLists)
+//const allLists = computed(() => store.getters.getAllDateList)
+
 const form = useForm({
   shop_name: 'Без магазина',
   catalog_id: id.shopId
@@ -31,9 +31,10 @@ const submit = () => {
 
   <AuthLayout>
     <div class="wrapper-home">
-      {{ allLists }}
       <div class="calendar-box block">
-        <CalendarSelector />
+        <CalendarSelector 
+            
+        />
       </div>
       <div class="my-content mt-5 p-2.5 overflow-y-auto">       
         <h1 class="text-stone-700 text-lg font-bold underline underline-offset-8">

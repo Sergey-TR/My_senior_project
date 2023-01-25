@@ -2,11 +2,15 @@
 import AuthLayout from '@/Layouts/AuthLayout.vue';
 import CalendarSelector from '@/Components/Calendar/CalendarSelector.vue';
 import { Link, Head } from '@inertiajs/inertia-vue3';
+import store from '@/Store/store';
 
 const catalog = defineProps({
   catalog: Array,
   shops: Array
 })
+
+//const allLists = computed(() => store.getters.getAllDateList)
+
 </script>
 
 <template>
