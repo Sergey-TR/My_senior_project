@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Shop\ShopStoreRequest;
 use App\Models\Catalog;
+use App\Models\Product;
 use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,13 +28,11 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        
-        //$shopId = $catalog->latest()->first()->id;
+        $shopId = $id;
 
-        
-        return Inertia::render('Shops/Create');
+        return Inertia::render('Shops/Create', compact('shopId'));
     }
 
     /**
@@ -47,7 +46,7 @@ class ShopController extends Controller
         Shop::create($request->validated());
         $shopId = Shop::latest()->first()->id;
 
-        return redirect()->route('products.create')->with('message', $shopId);
+        return redirect()->route('products.create', $shopId);
     }
 
     /**
@@ -58,19 +57,12 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-       
-            $shopInList = Shop::where('catalog_id', '=', $id)->get();
-           //dd($shopInList);
-            if($shopInList->isEmpty()) {
-                $message = 'don`t have shops';
-                return Inertia::render('Shops/Show', compact('message'));
-            }
+        $shop = Shop::where('id', '=', $id)->first();
+        // dd($shop);
+        $list = Catalog::where('id', '=', $shop->catalog_id)->get();
+        $products = Product::where('shop_id', '=', $id)->get();
             
-            return Inertia::render('Shops/Show', compact('shopInList'));
-        
-        //dd($shopInList->toArray());
-        
-
+        return Inertia::render('Shops/Show', compact('shop', 'products', 'list'));
     }
 
     /**

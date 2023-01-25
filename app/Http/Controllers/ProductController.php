@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Product\ProductStoreRequest;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
@@ -13,7 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+
+        return Inertia::render('Products/Index', compact('products'));
     }
 
     /**
@@ -21,9 +26,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $productId = $id;
+
+        return Inertia::render('Products/Create', compact('productId'));
     }
 
     /**
@@ -32,9 +39,11 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
-        //
+        $product = Product::create($request->validated());
+
+        return redirect()->route('shops.show', $request->shop_id);
     }
 
     /**
