@@ -29,8 +29,6 @@ class CatalogController extends Controller
                 ->orderBy('list_data', 'asc')
                     ->get();
 
-                    //dd($catalogJoinShop->toArray());
-
         $currentDay = date('Y-m-d');
         $lists = [];
         $dateList = [];
@@ -79,7 +77,7 @@ class CatalogController extends Controller
         $lastList = Catalog::latest()->first();
         $lastListId = $lastList->id;
         
-        return redirect()->route('shops.create')->with('message', $lastListId);
+        return redirect()->route('shops.create', $lastListId);
     }
 
     /**
@@ -92,9 +90,9 @@ class CatalogController extends Controller
     {
         $catalog = Catalog::where('id', '=', $id)->get();
         $shops = Shop::where('catalog_id', '=', $id)->get();
-        if($shops->isEmpty()) {
-            return redirect()->route('shops.create')->with('message', $id);
-        };
+        // if($shops->isEmpty()) {
+        //     return redirect()->route('shops.create')->with('message', $id);
+        // };
 
         return Inertia::render('Catalogs/Show', compact('catalog', 'shops'));
     }

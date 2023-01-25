@@ -45,7 +45,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["dayOfMonth", "getDayList"]),
+    ...mapGetters(["dayOfMonth", "getDayList", "getAllDateList"]),
   },
 
   watch: {

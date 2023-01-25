@@ -25,10 +25,10 @@ export default {
     };
   },
 
-  setup() {
-    const allList = computed(() => usePage().props.value.dateList)
-    return { allList }
-  },
+  // setup() {
+  //   const allList = computed(() => usePage().props.value.dateList)
+  //   return { allList }
+  // },
 
   methods: {
    
@@ -43,8 +43,8 @@ export default {
       const isCurrentDate = getISO(new Date()) === getISO(this.days);
         let classes = "";
         let purchase = "";
-      if(this.allList) {
-        const note = noteDays(this.allList);
+      if(this.dateList) {
+        const note = noteDays(this.dateList);
           
         for (let i = 0; i <= note.length - 1; i++) {
           if (

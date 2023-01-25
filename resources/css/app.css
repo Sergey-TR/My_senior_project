@@ -23,6 +23,25 @@ body {
   display: none;
 }
 
+.hint {
+  position: relative;
+}
+
+.hint:hover::after {
+  content: attr(data-title);
+  position: absolute;
+  left: 0;
+  top: -45px;
+  z-index: 10;
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: small;
+  color: #57a6eb;
+  width: 100%;
+}
+
 .bi-calendar3, .bi-view-list{
   color: #57a6eb;
   width: 20px;

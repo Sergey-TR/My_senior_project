@@ -2,8 +2,10 @@
 import AuthLayout from '@/Layouts/AuthLayout.vue';
 import CalendarSelector from '@/Components/Calendar/CalendarSelector.vue';
 import DropDownShopInList from '@/Components/DropDownShopInList.vue';
+import dateFilter from '@/Filters/date.filter';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import { watch, ref, reactive } from 'vue';
+import store from '@/Store/store';
 
 const myList = defineProps({
   lists: Array,
@@ -12,6 +14,8 @@ const myList = defineProps({
   shops: Array,
   catalogJoinShop: Array
 })
+
+store.dispatch('getDateUserList', myList.dateList)
 
 const a = '5'
 </script>
@@ -27,51 +31,53 @@ const a = '5'
         />
       </div>
       <div class="my-content mt-5 p-2.5">
-        <h1 class="text-stone-700 text-lg font-bold underline underline-offset-8">My Lists</h1>
+        <h1 class="text-stone-700 text-lg font-bold underline underline-offset-8">Списки</h1>
         <div class="w-full flex justify-center flex-col mt-4" v-if="(!myList.lists.length > 0)">
           <div class="text-stone-600 font-bold text-lg">
-            You don't have Lists for the current and future date
+            У Вас нет списков на текущую и будущие даты.
           </div>
           <Link
             :href="route('catalogs.create')"
             class="hover:underline  hover:underline-offset-8 hover:text-sky-400 text-lg text-sky-500 mt-3 font-bold"
-            >Create List
+            >Создать
           </Link>
         </div>
         <div v-else class="w-full flex flex-col mt-6">
-          <div class="flex items-center justify-between w-full">
-            <div class="flex items-center justify-start w-[30%] text-stone-700 text-sm font-bold ">
-              List data
+          <!-- <div class="flex items-center justify-between w-full">
+            <div class="flex flex-wrap items-center justify-start w-[20%] text-stone-700 text-sm font-bold ">
+              дата
             </div>
-            <div class="flex items-center justify-start w-[40%] text-stone-700 text-sm font-bold ">
-              List name
+            <div class="flex flex-wrap items-center justify-start w-[40%] text-stone-700 text-sm font-bold ">
+              название
             </div>
-            <div class="flex items-center justify-start w-[20%] text-stone-700 text-sm font-bold ">
-              Shops 
+            <div class="flex flex-wrap items-center justify-start w-[20%] text-stone-700 text-sm font-bold ">
+              магазины
             </div>
-            <div class="flex items-center justify-end w-[10%] text-stone-700 text-sm font-bold ">
-              Del
+            <div class="flex flex-wrap items-center justify-end w-[20%] text-stone-700 text-sm font-bold ">
+              удалить
             </div>
-          </div>
+          </div> -->
           <div class="w-full flex items-center justify-between mb-2 pb-2 border-b border-stone-400"
             v-for= "list in myList.lists" :key="list.id"
           >
-            <div class="hover:cursor-pointer flex mt-4 w-full">
-                <div class="flex items-center justify-start w-[30%]">
-                  {{ list.list_data }} 
+            <div class="flex mt-4 w-full">
+              <Link :href="route('catalogs.show', list.id)" class="hover:cursor-pointer hover:text-sky-600 flex w-full hint" data-title="Посмотреть список">
+                <div class="flex items-center justify-start w-[20%]">
+                 {{ dateFilter(list.list_data, 'short')  }} 
                 </div>
                 <div class="flex items-center justify-start w-[40%]">
                   {{ list.name }}
                 </div>
-                <div class="flex items-center justify-start w-[10%]"> 
-                  {{ a }}
+                <div class="flex items-center justify-start w-[20%]"> 
+                  {{ a }} маг.
                 </div>
-                <Link :href="route('catalogs.show', list.id)" class="flex items-center justify-end w-[10%]">
+                <!-- <Link :href="route('catalogs.show', list.id)" class="flex items-center justify-end w-[10%]">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
                   </svg>
-                </Link>
-                <Link :href="route('catalogs.destroy', list.id)" method="delete" as="button" class="flex items-center justify-end w-[10%]">
+                </Link> -->
+              </Link>
+              <Link :href="route('catalogs.destroy', list.id)" method="delete" as="button" class="flex items-center justify-end w-[20%] hint" data-title="Удалить">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>

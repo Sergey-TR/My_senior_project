@@ -19,6 +19,8 @@ return new class extends Migration
                 ->constrained('shops')
                     ->onDelete('cascade');
             $table->string('title');
+            $table->string('quantity');
+            $table->string('measured');
             $table->boolean('success')->default(false);
             $table->timestamps();
         });
